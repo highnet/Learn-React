@@ -6,10 +6,10 @@ import Counters from './components/counters';
 class App extends Component {
     state = { 
         counters: [
-            {id: 0, value: 0},
-            {id: 1, value: 0},
-            {id: 2, value: 0},
-            {id: 3, value: 0}
+            {id: Math.random(), value: 0},
+            {id: Math.random(), value: 0},
+            {id: Math.random(), value: 0},
+            {id: Math.random(), value: 0}
 
         ]
     }
@@ -41,9 +41,14 @@ class App extends Component {
     }
 
     handleDelete = (counterId) => {
-        console.log("Handling Deletion " , counterId);
         const counters = this.state.counters.filter(c => c.id !== counterId);
         this.setState({counters});
+    }
+
+    handleAdd = () => {
+        this.setState(prevState => ({
+        counters: [ {id: Math.random(), value: 0}, ...prevState.counters]
+        }))
     }
 
     render(){
@@ -55,6 +60,7 @@ class App extends Component {
             <main className="container">
                 <Counters
                 counters={this.state.counters}
+                onAdd={this.handleAdd}
                 onReset={this.handleReset} 
                 onIncrement={this.handleIncrement}
                 onDecrement={this.handleDecrement}
